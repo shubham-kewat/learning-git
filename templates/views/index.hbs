@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+  {{>header}}
+  
+  <form>
+    <input type="text" placeholder="location">
+    <button type="submit">search</button>
+    <p id="msg"></p>
+    <p id="err"></p>
+ </form>
+  {{>footer}}
+  
+  <script>
+      console.log('window is loaded successfully')
+      /*fetch('http://puzzle.mead.io/puzzle').then((response)=>{
+        response.json().then((data)=>{
+          console.log(data)
+        })
+      })*/
+
+    fetch("http://localhost:3000/weather?address='jabalpur'").then((response)=>{
+      response.json().then((data)=>{
+        if(data.error)
+          console.log(error)
+        else   
+          console.log(data)
+      })
+    })
+
+    let search = document.querySelector('input')
+    let weatherForm = document.querySelector('form')
+    let message = document.querySelector('#msg')
+    let err = document.querySelector('#err')
+
+    
+   
+    weatherForm.addEventListener('submit',(event)=>{
+      event.preventDefault()   
+      message.textContent = 'Loading....'   
+      let location = search.value 
+      fetch('http://localhost:3000/weather?address='+location).then((response)=>{
+        response.json().then((data)=>{
+          let details = "city :"+data.city+"country :"+data.country+"-state :"+data.state+"- temperature :"+
+          data.temperature+"- windspeed :"+data.windSpeed
+          message.textContent = details
+          
+        })
+      })
+      
+    })
+
+    
+
+      //fetch data for weather worst trial
+      /*fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/boston.json?access_token=pk.eyJ1IjoiaW1vY29jbyIsImEiOiJjazlxMWJ4Y2cwZnRmM29wOWRwOGFxOWR1In0.IR4_t9ujJfV3MGcPuXcMIA').then((response)=>{
+        response.json().then((data)=>{
+          console.log(data.features[0])
+          let latti = console.log(data.features[0].geometry.coordinates[0])
+          let longi = console.log(data.features[0].geometry.coordinates[1])
+
+          fetch("http://api.weatherstack.com/current?access_key=497032e3d009c8e0900a6ae41a4c740e&query="+latti+","+longi+"").then((response)=>{
+            response.json().then((data)=>{
+              console.log(data)
+            })
+          })
+        })
+      })*/
+    </script>
+</body>
+</html>
