@@ -9,6 +9,7 @@ let forecast = require('./forecast')
 let staticFilePath = path.join(__dirname,'../public')
 let viewsFilePath = path.join(__dirname,'../templates/views')
 let partials = path.join(__dirname,'../templates/partials')
+const port = process.env.PORT||3000
 console.log(viewsFilePath)
 //setup path for views
 
@@ -52,6 +53,6 @@ app.get('*',(req,res)=>{
     res.render('errpage',{message:'404 not found'})
 })
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("server is listening on port 3000")
 })

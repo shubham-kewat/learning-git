@@ -38,6 +38,7 @@
     let weatherForm = document.querySelector('form')
     let message = document.querySelector('#msg')
     let err = document.querySelector('#err')
+    let url = ""
 
     
    
@@ -45,9 +46,9 @@
       event.preventDefault()   
       message.textContent = 'Loading....'    
       let location = search.value 
-      fetch('http://localhost:3000/weather?address='+location).then((response)=>{
+      fetch('/weather?address='+location).then((response)=>{
         response.json().then((data)=>{
-          let details = "city :"+data.city+"country :"+data.country+"-state :"+data.state+"- temperature :"+
+          let details = "city :"+data.city+" country :"+data.country+" state :"+data.state+"- temperature :"+
           data.temperature+"- windspeed :"+data.windSpeed
           message.textContent = details
           
